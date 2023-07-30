@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  model:
+    build:
+      context: ./model
+      dockerfile: Dockerfile
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
+    ports:
+      - 8000:80
+    volumes:
+      - ./model/model_files:/app/model_files
+    env_file:
+      - env/model.env
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:80/healthcheck"]
+      interval: 10s
+      timeout: 1s
+      retries: 3
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    command: ["ruby", "demo.rb", "Hello model!"]
+    depends_on:
+      model:
+        condition: service_healthy

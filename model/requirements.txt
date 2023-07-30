@@ -1,0 +1,6 @@
+fastapi
+httpx
+pydantic>=2.0
+pytest
+sentence-transformers
+uvicorn

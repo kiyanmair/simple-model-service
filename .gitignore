@@ -1,0 +1,11 @@
+# pyenv version file
+.python-version
+
+# Virtual environments
+venv/
+
+# Environment variables
+env/
+
+# Model files
+model/model_files/
